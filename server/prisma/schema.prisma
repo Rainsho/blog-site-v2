@@ -1,0 +1,43 @@
+generator photon {
+  provider = "photonjs"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("MYSQL_URL")
+}
+
+model User {
+  id        String    @default(cuid()) @id
+  email     String    @unique
+  passwd    String
+  admin     Boolean
+  name      String
+  image     String
+  createdAt Float     @map("created_at")
+  blogs     Blog[]
+  comments  Comment[]
+
+  @@map("users")
+}
+
+model Blog {
+  id        String @default(cuid()) @id
+  name      String
+  summary   String
+  content   String
+  createdAt Float  @map("created_at")
+  user      User   @map("user_id")
+
+  @@map("blogs")
+}
+
+model Comment {
+  id        String @default(cuid()) @id
+  content   String
+  createdAt Float  @map("created_at")
+  blog      Blog   @map("blog_id")
+  user      User   @map("user_id")
+
+  @@map("comments")
+}
