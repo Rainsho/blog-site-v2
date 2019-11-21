@@ -1,0 +1,21 @@
+{
+  "name": "blog-site-v2",
+  "version": "1.0.0",
+  "description": "Personal blog site builds with GraphQL and React.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rainsho",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^3.1.0",
+    "lint-staged": "^9.4.3",
+    "prettier": "^1.19.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
