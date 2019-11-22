@@ -1,5 +1,4 @@
 const { sign } = require('jsonwebtoken');
-const { mutationType, stringArg } = require('nexus');
 const { createHash } = require('crypto');
 const nanoid = require('nanoid');
 const { APP_SECRET, APP_COOKIE } = require('../../config');

@@ -9,6 +9,7 @@ const Blog = objectType({
     t.model.content();
     t.model.createdAt();
     t.model.user();
+    t.model.comments();
   },
 });
 

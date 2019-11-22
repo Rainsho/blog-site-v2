@@ -5,7 +5,7 @@ const User = objectType({
   definition(t) {
     t.model.id();
     t.model.email();
-    t.model.passwd();
+    // t.model.passwd();
     t.model.admin();
     t.model.name();
     t.model.image();
