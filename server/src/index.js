@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const { Photon } = require('@generated/photon'); //eslint-disable-line
 const types = require('./types');
 const { SERVER_CONFIG } = require('./config');
+const { permission } = require('./services/permission');
 
 const photon = new Photon();
 
@@ -16,6 +17,7 @@ const server = new GraphQLServer({
     plugins: [nexusPrismaPlugin()],
     outputs: false,
   }),
+  middlewares: [permission],
   context: request => ({ ...request, photon }),
 });
 
