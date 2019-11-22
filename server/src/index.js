@@ -3,20 +3,18 @@ require('dotenv').config();
 const { GraphQLServer } = require('graphql-yoga');
 const { makeSchema } = require('nexus');
 const { nexusPrismaPlugin } = require('nexus-prisma');
-const { Photon } = require('@generated/photon');
 const cookieParser = require('cookie-parser');
+const { Photon } = require('@generated/photon'); //eslint-disable-line
 const types = require('./types');
 
 const photon = new Photon();
 
-const schema = makeSchema({
-  types,
-  plugins: [nexusPrismaPlugin()],
-  outputs: false,
-});
-
 const server = new GraphQLServer({
-  schema,
+  schema: makeSchema({
+    types,
+    plugins: [nexusPrismaPlugin()],
+    outputs: false,
+  }),
   context: request => ({ ...request, photon }),
 });
 
