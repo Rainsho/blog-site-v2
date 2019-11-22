@@ -1,5 +1,7 @@
 const { mutationType, stringArg } = require('nexus');
 const user = require('./user/resolver');
+const blog = require('./blog/resolver');
+const comment = require('./comment/resolver');
 
 const Mutation = mutationType({
   definition(t) {
@@ -19,6 +21,18 @@ const Mutation = mutationType({
     t.crud.deleteOneComment();
     t.crud.updateOneBlog();
     t.crud.updateOneComment();
+
+    t.field('insertOneBlog', {
+      type: 'Blog',
+      args: { name: stringArg(), summary: stringArg(), content: stringArg() },
+      resolve: blog.resolveInsertBlog,
+    });
+
+    t.field('insertOneComment', {
+      type: 'Comment',
+      args: { content: stringArg(), blogId: stringArg() },
+      resolve: comment.resolveInsertComment,
+    });
   },
 });
 

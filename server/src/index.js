@@ -6,6 +6,7 @@ const { nexusPrismaPlugin } = require('nexus-prisma');
 const cookieParser = require('cookie-parser');
 const { Photon } = require('@generated/photon'); //eslint-disable-line
 const types = require('./types');
+const { SERVER_CONFIG } = require('./config');
 
 const photon = new Photon();
 
@@ -25,13 +26,6 @@ server.express.get('/', (req, res) => {
   res.send('it seems all functions might working properly~');
 });
 
-server.start(
-  {
-    port: 8000,
-    endpoint: '/graphql',
-    subscriptions: '/subscriptions',
-    playground: '/playground',
-    // cors: { origin: [/localhost/, /rainsho\.cc/] },
-  },
-  ({ port }) => console.log(`Server started on port ${port}...`)
+server.start(SERVER_CONFIG, ({ port }) =>
+  console.log(`Server started on port ${port}...`)
 );

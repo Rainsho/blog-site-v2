@@ -13,10 +13,12 @@
     "nexus-prisma": "^0.5.3-next.2"
   },
   "devDependencies": {
+    "nodemon": "^2.0.1",
     "prisma2": "2.0.0-preview016.2"
   },
   "scripts": {
-    "start": "node  ./src/index",
+    "start": "node ./src",
+    "dev": "export NODE_ENV=development && nodemon ./src",
     "postinstall": "prisma2 generate"
   }
 }
