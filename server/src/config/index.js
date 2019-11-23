@@ -8,12 +8,13 @@ module.exports = {
           endpoint: '/graphql',
           subscriptions: '/subscriptions',
           playground: '/playground',
+          cors: { credentials: true, origin: [/localhost/] },
         }
       : {
           port: 4000,
           endpoint: '/graphql',
           subscriptions: false,
           playground: false,
-          cors: { origin: [/rainsho\.cc/] },
+          cors: { credentials: true, origin: [/rainsho\.cc/] },
         },
 };

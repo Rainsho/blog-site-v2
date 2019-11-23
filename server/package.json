@@ -2,6 +2,11 @@
   "name": "blog-site-v2-server",
   "version": "1.0.0",
   "license": "MIT",
+  "scripts": {
+    "start": "node ./src",
+    "dev": "export NODE_ENV=development && nodemon ./src",
+    "postinstall": "prisma2 generate"
+  },
   "dependencies": {
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
@@ -18,10 +23,5 @@
   "devDependencies": {
     "nodemon": "^2.0.1",
     "prisma2": "2.0.0-preview016.2"
-  },
-  "scripts": {
-    "start": "node ./src",
-    "dev": "export NODE_ENV=development && nodemon ./src",
-    "postinstall": "prisma2 generate"
   }
 }
