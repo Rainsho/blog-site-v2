@@ -23,7 +23,7 @@ const rules = {
 
 const permission = shield({
   Query: {
-    me: rules.isLogin,
+    // me: rules.isLogin,
   },
   Mutation: {
     insertOneBlog: rules.isLogin,

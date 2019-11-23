@@ -4,6 +4,8 @@ const { GraphQLServer } = require('graphql-yoga');
 const { makeSchema } = require('nexus');
 const { nexusPrismaPlugin } = require('nexus-prisma');
 const cookieParser = require('cookie-parser');
+const express = require('express');
+const morgan = require('morgan');
 const { Photon } = require('@generated/photon'); //eslint-disable-line
 const types = require('./types');
 const { SERVER_CONFIG } = require('./config');
@@ -21,11 +23,15 @@ const server = new GraphQLServer({
   context: request => ({ ...request, photon }),
 });
 
-server.express.locals.photon = photon;
+morgan.token('body', req => JSON.stringify(req.body, null, '  '));
+
+server.express.use(express.json());
 server.express.use(cookieParser());
-server.express.get('/', (req, res) => {
-  // console.log(req.app.locals.photon);
-  res.send('it seems all functions might working properly~');
+server.express.use(morgan('combined'));
+server.express.use(morgan('└─ in [:response-time ms] with body: :body'));
+
+server.express.get('/ping', (req, res) => {
+  res.send('pong');
 });
 
 server.start(SERVER_CONFIG, ({ port }) =>
