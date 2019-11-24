@@ -1,43 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import Link from 'next/link';
 import { withApollo } from '../lib/apollo';
+import { Context } from '../global';
+import Header from '../components/Header';
+import BlogList from '../components/BlogList';
 
-const query = gql`
+const QUERY_BLOGS = gql`
   {
     blogs {
       id
       name
       summary
     }
-    me {
-      id
-      name
-    }
   }
 `;
 
 const IndexPage = () => {
-  const { loading, error, data } = useQuery(query);
-
-  if (error) return <p>error!!!</p>;
-
-  if (loading) return <p>loading...</p>;
-
-  const { blogs, me } = data;
+  const { loading, data = {} } = useQuery(QUERY_BLOGS);
+  const { user } = useContext(Context);
 
   return (
-    <div>
-      <p>{`me is ${me && me.name}`}</p>
-      {blogs.map(({ id, name }) => (
-        <p key={id}>
-          <Link href={`/blog/${id}`}>
-            <a>{name}</a>
-          </Link>
-        </p>
-      ))}
-    </div>
+    <>
+      <Header />
+      <BlogList loading={loading} blogs={data.blogs || []} me={user} />
+    </>
   );
 };
 

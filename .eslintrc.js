@@ -1,6 +1,7 @@
 module.exports = {
   parser: 'babel-eslint',
   extends: ['airbnb', 'prettier'],
+  plugins: ['react-hooks'],
   env: {
     es6: true,
     node: true,
@@ -9,7 +10,7 @@ module.exports = {
   settings: {
     react: {
       pragma: 'React',
-      version: 'latest',
+      version: '16.12.0',
     },
   },
   rules: {
@@ -22,5 +23,7 @@ module.exports = {
     'react/jsx-filename-extension': 0,
     'react/jsx-props-no-spreading': 0,
     'jsx-a11y/anchor-is-valid': 0,
+    'react/prop-types': 0,
+    'react/jsx-one-expression-per-line': 0,
   },
 };

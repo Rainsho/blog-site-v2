@@ -57,7 +57,7 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
       // we can use it in `PageComponent.getInitialProp`.
       const apolloClient = (ctx.apolloClient = initApolloClient(
         {},
-        ctx.req.headers.cookie
+        ctx.req && ctx.req.headers.cookie
       ));
 
       // Run wrapped getInitialProps methods
