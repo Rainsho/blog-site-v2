@@ -3,7 +3,7 @@
 /**
  * @doc
  *
- * This is a magci file, copying from
+ * This is a magic file, copying from
  * https://github.com/apollographql/apollo-client/issues/5089#issuecomment-540605542
  *
  */

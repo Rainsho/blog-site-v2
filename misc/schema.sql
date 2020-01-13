@@ -4,7 +4,9 @@ CREATE DATABASE awesome;
 
 USE awesome;
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON awesome.* TO 'www-data'@'localhost' IDENTIFIED BY 'www-data';
+-- update for MySQL 8.0
+CREATE USER 'www-data'@'localhost' IDENTIFIED BY 'www-data';
+GRANT SELECT, INSERT, UPDATE, DELETE ON awesome.* TO 'www-data'@'localhost';
 
 CREATE TABLE users (
 	`id` varchar(50) NOT NULL,
