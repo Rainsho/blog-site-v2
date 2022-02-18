@@ -1,14 +1,18 @@
-generator photon {
-  provider = "photonjs"
-}
-
 datasource db {
   provider = "mysql"
   url      = env("MYSQL_URL")
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator nexusPrisma {
+  provider = "nexus-prisma"
+}
+
 model User {
-  id        String    @default(cuid()) @id
+  id        String    @id @default(cuid())
   email     String    @unique
   passwd    String
   admin     Boolean
@@ -17,27 +21,25 @@ model User {
   createdAt Float     @map("created_at")
   blogs     Blog[]
   comments  Comment[]
-
-  @@map("users")
 }
 
 model Blog {
-  id        String @default(cuid()) @id
+  id        String    @id @default(cuid())
   name      String
   summary   String
   content   String
-  createdAt Float  @map("created_at")
-  user      User   @map("user_id")
-
-  @@map("blogs")
+  createdAt Float     @map("created_at")
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String    @map("user_id")
+  comments  Comment[]
 }
 
 model Comment {
-  id        String @default(cuid()) @id
+  id        String @id @default(cuid())
   content   String
   createdAt Float  @map("created_at")
-  blog      Blog   @map("blog_id")
-  user      User   @map("user_id")
-
-  @@map("comments")
+  blog      Blog   @relation(fields: [blogId], references: [id])
+  blogId    String @map("blog_id")
+  user      User   @relation(fields: [userId], references: [id])
+  userId    String @map("user_id")
 }

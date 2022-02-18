@@ -2,28 +2,28 @@ require('dotenv').config();
 
 const { GraphQLServer } = require('graphql-yoga');
 const { makeSchema } = require('nexus');
-const { nexusPrismaPlugin } = require('nexus-prisma');
+// const { nexusPrismaPlugin } = require('nexus-prisma');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const morgan = require('morgan');
-const { Photon } = require('@prisma/photon');
+const { PrismaClient } = require('@prisma/client');
 const types = require('./types');
 const { SERVER_CONFIG } = require('./config');
 const { permission } = require('./services/permission');
 
-const photon = new Photon();
+const prisma = new PrismaClient();
 
 const server = new GraphQLServer({
   schema: makeSchema({
     types,
-    plugins: [nexusPrismaPlugin()],
+    // plugins: [nexusPrismaPlugin()],
     outputs: false,
   }),
   middlewares: [permission],
-  context: request => ({ ...request, photon }),
+  context: (request) => ({ ...request, prisma }),
 });
 
-morgan.token('body', req => JSON.stringify(req.body, null, '  '));
+morgan.token('body', (req) => JSON.stringify(req.body, null, '  '));
 
 server.express.use(express.json());
 server.express.use(cookieParser());

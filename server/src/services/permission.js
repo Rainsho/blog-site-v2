@@ -7,13 +7,13 @@ const rules = {
   }),
   isBlogOwner: rule()(async (root, { where: { id } }, ctx) => {
     const user = getUser(ctx);
-    const blogUser = await ctx.photon.blogs.findOne({ where: { id } }).user();
+    const blogUser = await ctx.prisma.blogs.findOne({ where: { id } }).user();
 
     return user.admin || user.id === blogUser.id;
   }),
   isCommentOwner: rule()(async (root, { where: { id } }, ctx) => {
     const user = getUser(ctx);
-    const commentUser = await ctx.photon.comments
+    const commentUser = await ctx.prisma.comments
       .findOne({ where: { id } })
       .user();
 

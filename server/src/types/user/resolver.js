@@ -5,11 +5,9 @@ const { APP_SECRET, APP_COOKIE } = require('../../config');
 const { getUser } = require('../../services/utils');
 
 const sha1 = (str1, str2) =>
-  createHash('sha1')
-    .update(`${str1}:${str2}`)
-    .digest('hex');
+  createHash('sha1').update(`${str1}:${str2}`).digest('hex');
 
-const defaultImage = email =>
+const defaultImage = (email) =>
   `http://www.gravatar.com/avatar/${createHash('md5')
     .update(email)
     .digest('hex')}?d=mm&s=120`;
@@ -21,7 +19,7 @@ const resolveMe = (root, args, ctx) => {
 };
 
 const resolveLogin = async (root, { email, passwd }, ctx) => {
-  const user = await ctx.photon.users.findOne({ where: { email } });
+  const user = await ctx.prisma.users.findOne({ where: { email } });
 
   if (!user) {
     throw new Error(`No user found for email: ${email}`);
@@ -38,14 +36,14 @@ const resolveLogin = async (root, { email, passwd }, ctx) => {
 };
 
 const resolveSignup = async (root, { name, email, passwd }, ctx) => {
-  const user = await ctx.photon.users.findOne({ where: { email } });
+  const user = await ctx.prisma.users.findOne({ where: { email } });
 
   if (user) {
     throw new Error(`Email is already in use: ${email}`);
   }
 
   const id = nanoid();
-  const newUser = await ctx.photon.users.create({
+  const newUser = await ctx.prisma.users.create({
     data: {
       id,
       name,

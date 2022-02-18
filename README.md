@@ -13,3 +13,7 @@ The personal website I am running now, is driven by Python 3, which I was writen
 ### front-end
 
 - React
+
+## TODO
+
+- [ ] wait the `crud` to be implemented [ref](https://github.com/graphql-nexus/nexus-plugin-prisma/issues/1039)

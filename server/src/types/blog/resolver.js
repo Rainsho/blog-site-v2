@@ -4,7 +4,7 @@ const { getUser } = require('../../services/utils');
 const resolveInsertBlog = async (root, { name, summary, content }, ctx) => {
   const user = getUser(ctx);
 
-  return ctx.photon.blogs.create({
+  return ctx.prisma.blogs.create({
     data: {
       id: nanoid(),
       name,

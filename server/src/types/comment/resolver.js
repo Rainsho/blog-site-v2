@@ -3,13 +3,13 @@ const { getUser } = require('../../services/utils');
 
 const resolveInsertComment = async (root, { content, blogId }, ctx) => {
   const user = getUser(ctx);
-  const blog = await ctx.photon.blogs.findOne({ where: { id: blogId } });
+  const blog = await ctx.prisma.blogs.findOne({ where: { id: blogId } });
 
   if (!blog) {
     throw new Error('The blog may not exists.');
   }
 
-  return ctx.photon.comments.create({
+  return ctx.prisma.comments.create({
     data: {
       id: nanoid(),
       content,
